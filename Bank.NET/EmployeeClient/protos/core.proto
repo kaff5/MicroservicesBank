@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ru.bank.core";
+option java_outer_classname = "BankCoreProto";
+
+option csharp_namespace = "CoreClient";
+
+
+package bank.core;
+
+enum BillType {
+  DEBIT = 0;
+  CREDIT = 1;
+}
+
+enum BillStatus {
+  OPENED = 0;
+  CLOSED = 1;
+}
+
+enum OperationStatus {
+  PENDING = 0;
+  SUCCESS = 1;
+  ERROR = 2;
+}
+
+
+message Bill {
+  int64 id = 1;
+  string userId = 2;
+  int64 balance = 3;
+  BillType type = 4;
+  BillStatus status = 5;
+  string createdAt = 6;
+}
+
+message Operation {
+  string id = 1;
+  int64 fromBillId = 2;
+  int64 toBillId = 3;
+  int64 amount = 4;
+  string performedAt = 5;
+  OperationStatus status = 6;
+}
+
+message OpenBillRequest {
+  string userId = 1;
+  BillType type = 2;
+}
+
+message CloseBillRequest {
+  int64 billId = 1;
+}
+
+message GetOperationsRequest {
+  int64 billId = 1;
+}
+
+message GetOperationsResponse {
+  repeated Operation operations = 1;
+}
+
+message GetUserBillsRequest {
+  string userId = 1;
+}
+
+message GetBillsResponse {
+  repeated Bill bills = 1;
+}
+
+message GetBillRequest {
+  int64 billId = 1;
+}
+
+service BankCoreService {
+  rpc OpenBill(OpenBillRequest) returns (Bill) {}
+  rpc CloseBill(CloseBillRequest) returns (Bill) {}
+  rpc GetOperations(GetOperationsRequest) returns (stream GetOperationsResponse) {}
+  rpc GetUserBills(GetUserBillsRequest) returns (GetBillsResponse) {}
+  rpc GetBill(GetBillRequest) returns (Bill) {}
+}

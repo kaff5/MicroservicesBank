@@ -1,0 +1,100 @@
+﻿@model EmployeeClient.ViewModels.ProfileViewModel
+
+@{
+	ViewData["Title"] = "Информация пользователя";
+}
+
+@if (Model.ClientInfo.Role == "Client")
+{
+	<div class="card mb-3">
+		@if (!Model.ClientInfo.isBlocked)
+		{
+			<h5 class="card-header bg-success">Информация клиента</h5>
+		}
+		else
+		{
+			<h5 class="card-header bg-danger">Информация клиента</h5>
+		}
+
+		<div class="card-body">
+			<h6 class="">Id: @Model.ClientInfo.UserId</h6>
+			<h6 class="mt-3">Имя: @Model.ClientInfo.Name</h6>
+			<h6 class="mt-3">Фамилия: @Model.ClientInfo.Surname</h6>
+			<h6 class="mt-3">Отчество: @Model.ClientInfo.Patronymic</h6>
+			<h6 class="mt-3">Логин: @Model.ClientInfo.Username</h6>
+			<h6 class="mt-3">Кредитный рейтинг: @Model.ClientInfo.CreditRating</h6>
+		</div>
+	</div>
+
+	@if (!Model.ClientInfo.isBlocked)
+	{
+		<a class="btn btn-outline-danger mb-5" asp-action="BlockUser" asp-controller="Client" asp-route-userId="@Model.ClientInfo.UserId">Заблокировать клиента</a>
+	}
+
+	<div class="card">
+		<h5 class="card-header">Счета в банке</h5>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-12">
+					<div class="row row-cols-md-4">
+						@foreach (var bill in Model.BillsClient)
+						{
+							<div class="mt-4">
+								<div class="card">
+									@if (bill.Status == EmployeeClient.ViewModels.StatusBill.OPENED)
+									{
+										<div class="card-header" style="background-color: #3a9876">
+											<a class="btn" asp-action="Bill" asp-controller="Client" asp-route-billId="@bill.Id">
+												<h5 class="mb-0">@bill.Id</h5>
+											</a>
+										</div>
+									}
+									else
+									{
+										<div class="card-header bg-danger">
+											<a class="btn" asp-action="Bill" asp-controller="Client" asp-route-billId="@bill.Id">
+												<h5 class="mb-0">@bill.Id</h5>
+											</a>
+										</div>
+									}
+
+									<div class="card-body d-flex flex-column">
+										<h6 class="">Баланс: @bill.Balance</h6>
+										<h6 class="mt-3">Тип: @bill.Type</h6>
+										<h6 class="mt-3">Создан: @bill.CreateAt</h6>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+else
+{
+	<div class="card mb-3">
+		@if (!Model.ClientInfo.isBlocked)
+		{
+			<h5 class="card-header bg-success">Информация сотрудника</h5>
+		}
+		else
+		{
+			<h5 class="card-header bg-danger">Информация сотрудника</h5>
+		}
+
+		<div class="card-body">
+			<h6 class="">Id: @Model.ClientInfo.UserId</h6>
+			<h6 class="mt-3">Имя: @Model.ClientInfo.Name</h6>
+			<h6 class="mt-3">Фамилия: @Model.ClientInfo.Surname</h6>
+			<h6 class="mt-3">Отчество: @Model.ClientInfo.Patronymic</h6>
+			<h6 class="mt-3">Логин: @Model.ClientInfo.Username</h6>
+		</div>
+	</div>
+
+	@if (!Model.ClientInfo.isBlocked)
+	{
+		<a class="btn btn-outline-danger mb-5" asp-action="BlockUser" asp-controller="Client" asp-route-userId="@Model.ClientInfo.UserId">Заблокировать сотрудника</a>
+	}
+}

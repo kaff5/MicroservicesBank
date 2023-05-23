@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - smtp_sender</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/UsersService.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column h-100">
+    <header class="d-flex justify-content-center">
+		<nav class="d-flex navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom border-4 box-shadow mb-3">
+			<h1>Gevorkyanoff Bank</h1>
+        </nav>
+    </header>
+
+    <div class="container shadow flex-shrink-0 pt-3">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

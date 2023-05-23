@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ru.bank.loan";
+option java_outer_classname = "BankLoanProto";
+option csharp_namespace = "LoanService";
+
+package bank.loan;
+
+service Loaner {
+	rpc CreateTariff (CreateTariffModel) returns (TariffInfoModel);
+	rpc GetAllTariffs (Empty) returns (TariffListModel);
+	rpc GetCreditByBillId (CreditBillIdModel) returns (CreditInfoModel);
+	rpc TakeCredit (TakeCreditModel) returns (CreditInfoModel);
+	rpc CloseCredit (CreditBillIdModel) returns (CloseCreditResponse);
+	rpc GetUserCreditRating (RequestCreditRatingModel) returns (CreditRatingModel);
+}
+
+message Empty {
+}
+
+message CreditInfoModel {
+	int64 id = 1;
+	int64 BillId = 2;
+	int64 initialSum = 3;
+	int64 remainingSum = 4;
+	int64 duration = 5;
+	int64 dept = 6;
+	TariffInfoModel tariff = 7;
+	repeated LatePaymentModel latePayments = 8;
+}
+
+message TariffInfoModel {
+	int64 id = 1;
+	string name = 2;
+	int64 percentage = 3;
+}
+
+message TariffListModel {
+	repeated TariffInfoModel tariffs = 1;
+}
+
+message CreateTariffModel {
+	string name = 1;
+	int64 percentage = 2;
+}
+
+message CreditBillIdModel {
+	int64 id = 1;
+}
+
+message TakeCreditModel {
+	int64 initialSum = 1;
+	int64 tariffId = 2;
+	int64 duration = 3;
+	string userId = 4;
+}
+
+enum CloseCreditResult {
+	SUCCESS = 0;
+	FAILURE = 1;
+}
+
+message CloseCreditResponse {
+	CloseCreditResult result = 1;
+}
+
+message LatePaymentModel {
+	int64 amount = 1;
+	string date = 2;
+}
+
+message RequestCreditRatingModel {
+	string userId = 1;
+}
+
+message CreditRatingModel {
+	int64 rating = 1;
+}

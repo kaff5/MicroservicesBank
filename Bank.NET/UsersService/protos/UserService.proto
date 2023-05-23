@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+option csharp_namespace = "UsersService";
+
+option java_multiple_files = true;
+option java_package = "ru.bank.users";
+option java_outer_classname = "BankUsersProto";
+
+package bank.users;
+
+service Users {
+  rpc GetUserById (UserRequestById) returns (UserReply);
+  rpc GetAllUsers (GetAllUsersRequest) returns (ListUsers);
+  rpc BlockUserById (UserRequestById) returns (SuccessfullyReply);
+  rpc RegisterNewEmployee (RegisterUserRequest) returns (RegisterUserReply); 
+  rpc RegisterNewClient (RegisterUserRequest) returns (RegisterUserReply);
+  rpc Login (LoginRequest) returns (LoginReply);
+  rpc CheckToken (Token) returns (CheckTokenResult);
+}
+
+message Token {
+  string value = 1;
+}
+
+message CheckTokenResult {
+  bool isValid = 1;	
+}
+
+message UserRequestByName {
+  string name = 1;
+}
+
+message UserRequestById {
+  string userId = 1;
+}
+
+message UserReply {
+  string name = 1;
+  string surname = 2;
+  string patronymic = 3;
+  string userId = 4;
+  string role = 5;
+  string userName = 6;
+  bool isBlocked = 7;
+}
+
+message ListUsers {
+	repeated UserReply Users = 1;
+}
+
+message GetAllUsersRequest{
+
+}
+
+message SuccessfullyReply{
+	string message = 1;
+}
+
+message RegisterUserRequest{
+	string name = 1;
+	string surname = 2;
+	string patronymic = 3;
+	string userName = 4;
+	string password = 5;
+}
+
+message RegisterUserReply{
+	string name = 1;
+	string surname = 2;
+	string patronymic = 3;
+	string userName = 4;
+	string id = 5;
+	bool isBlocked = 6;
+}
+
+message LoginRequest{
+	string username = 1;
+	string password = 2;
+}
+
+message LoginReply{
+	string token = 1;
+}

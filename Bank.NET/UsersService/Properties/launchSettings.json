@@ -1,0 +1,26 @@
+{
+    "profiles": {
+        "http": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "DbConnectionStringForUsersService": "Host=localhost;Port=5432;Database=Gevorkyanoff_Users;Username=postgres;Password=123",
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "portEmployeeClient": "5150",
+                "ipEmployeeClient": "localhost"
+            },
+            "dotnetRunMessages": true,
+            "applicationUrl": "http://localhost:5136"
+        },
+        "https": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "DbConnectionStringForUsersService": "Host=localhost;Port=5432;Database=Gevorkyanoff_Users;Username=postgres;Password=123",
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "portEmployeeClient": "7129",
+                "ipEmployeeClient": "localhost"
+            },
+            "dotnetRunMessages": true,
+            "applicationUrl": "https://localhost:7115;http://localhost:5136"
+        }
+    }
+}

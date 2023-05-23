@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ru.bank.mobile.proxy";
+option java_outer_classname = "BankMobileProxyProto";
+
+package bank.mobile.proxy;
+
+message Empty {
+}
+
+message OperationPerforming {
+  string operationId = 1;
+  int64 fromBillId = 2;
+  int64 toBillId = 3;
+  int64 amount = 4;
+}
+
+service BankMobileProxyService {
+  rpc PerformOperation(OperationPerforming) returns (Empty) {}
+}

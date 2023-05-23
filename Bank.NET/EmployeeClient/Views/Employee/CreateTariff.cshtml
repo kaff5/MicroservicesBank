@@ -1,0 +1,24 @@
+﻿@model EmployeeClient.ViewModels.CreateTariffViewModel
+@{
+	ViewData["Title"] = "Создание тарифа";
+}
+<div class="row">
+	<div class="col-12">
+		<h1 class="mb-3">Создание тарифа</h1>
+
+		<form asp-action="CreateTariff" asp-controller="Employee" method="POST">
+
+			<div class="mb-3">
+				<label for="name" class="form-label" asp-for="Name">Имя тарифа</label>
+				<input type="text" class="form-control" id="name" asp-for="Name">
+			</div>
+			<div class="mb-3">
+				<label for="percentage" class="form-label" asp-for="Percentage">Процент</label>
+				<input type="text" class="form-control" id="percentage" asp-for="Percentage">
+			</div>
+
+			<div class="text-danger" asp-validation-summary="All"></div>
+			<button type="submit" class="btn btn-primary">Добавить</button>
+		</form>
+	</div>
+</div>

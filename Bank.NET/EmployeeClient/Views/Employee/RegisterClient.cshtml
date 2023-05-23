@@ -1,0 +1,36 @@
+﻿@model EmployeeClient.ViewModels.RegisterUserViewModel
+@{
+	ViewData["Title"] = "Создание клиента";
+}
+<div class="row">
+	<div class="col-12">
+		<h1 class="mb-3">Создание клиента</h1>
+
+		<form asp-action="RegisterClient" asp-controller="Employee" method="POST">
+
+			<div class="mb-3">
+				<label for="name" class="form-label" asp-for="Name">Имя</label>
+				<input type="text" class="form-control" id="name" asp-for="Name">
+			</div>
+			<div class="mb-3">
+				<label for="surname" class="form-label" asp-for="Surname">Фамилия</label>
+				<input type="text" class="form-control" id="surname" asp-for="Surname">
+			</div>
+			<div class="mb-3">
+				<label for="surname" class="form-label" asp-for="Patronymic">Отчество</label>
+				<input type="text" class="form-control" id="surname" asp-for="Patronymic">
+			</div>
+			<div class="mb-3">
+				<label for="username" class="form-label" asp-for="Username">Логин для входа</label>
+				<input type="text" class="form-control" id="username" asp-for="Username">
+			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label" asp-for="Password">Пароль</label>
+				<input type="password" class="form-control" id="password" asp-for="Password">
+			</div>
+
+			<div class="text-danger" asp-validation-summary="All"></div>
+			<button type="submit" class="btn btn-primary">Добавить</button>
+		</form>
+	</div>
+</div>

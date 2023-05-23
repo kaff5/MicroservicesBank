@@ -1,0 +1,49 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PortUsersService": "5136",
+        "IpUsersService": "localhost",
+        "PortLoanService": "7000",
+        "IpLoanService": "localhost",
+        "IpCoreService": "localhost",
+        "PortCoreService": "7111"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5150"
+    },
+    "https": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "PortUsersService": "7115",
+        "IpUsersService": "localhost",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PortLoanService": "32228",
+        "IpLoanService": "localhost",
+        "IpCoreService": "localhost",
+        "PortCoreService": "32227"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7129;http://localhost:5150"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:3514",
+      "sslPort": 44315
+    }
+  }
+}

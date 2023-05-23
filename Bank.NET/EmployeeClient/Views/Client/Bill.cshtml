@@ -1,0 +1,98 @@
+﻿@using EmployeeClient.ViewModels;
+@model EmployeeClient.ViewModels.BillOperationsViewModel
+
+@{
+	ViewData["Title"] = "Информация счёта";
+}
+
+<div class="card mb-3">
+	@if (Model.Bill.Status == EmployeeClient.ViewModels.StatusBill.OPENED)
+	{
+		<h5 class="card-header bg-success">Информация счёта</h5>
+	}
+	else
+	{
+		<h5 class="card-header bg-danger">Информация счёта</h5>
+	}
+
+	<div class="card-body">
+		<h6 class="" id="element">Id: @Model.Bill.Id</h6>
+		<h6 class="mt-3">Баланс: @Model.Bill.Balance</h6>
+		<h6 class="mt-3">Тип: @Model.Bill.Type</h6>
+		<h6 class="mt-3">Дата создания: @Model.Bill.CreateAt</h6>
+	</div>
+</div>
+
+<a class="btn btn-outline-info mb-5" asp-action="CreditInfo" asp-controller="Client" asp-route-billId="@Model.Bill.Id">Просроченные платежи</a>
+
+<table class="table" id="tableUnique">
+	<thead>
+	<tr>
+		<th>Id</th>
+		<th>Diff</th>
+		<th>PerformedAt</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var operation in Model.Operations)
+	{
+		<tr>
+			<td>@operation.Id</td>
+			<td>@operation.Amount</td>
+			<td>@operation.PerfomedAt</td>
+			<td>@operation.ToBillId</td>
+			<td>@operation.FromBillId</td>
+			<td>@operation.Status</td>
+		</tr>
+	}
+	</tbody>
+</table>
+
+@section scripts {
+	<script>
+		$(document).ready(function () {
+
+			let params = (new URL(document.location)).searchParams;
+			let id = params.get("billId");
+
+
+
+			// Establish a WebSocket connection
+			const socket = new WebSocket("wss://localhost:7129/wsBill");
+
+			socket.onopen = function (e) {
+				alert("[open] Connection established");
+				socket.send(id);
+			};
+
+			socket.onopen = function () {
+				socket.send(id);
+			};
+
+			socket.onmessage = function (msgevent) {
+				const operations = JSON.parse(msgevent.data);
+				var table = document.getElementById("tableUnique");
+				for (const operation of operations) {
+					const row = `
+																<tr>
+																			<td>${operation.Id}</td>
+																			<td>${operation.Amount}</td>
+																			<td>${operation.PerfomedAt}</td>
+																			<td>${operation.ToBillId}</td>
+																			<td>${operation.FromBillId}</td>
+																			<td>${operation.Status}</td>
+																</tr>
+															`;
+
+					$("table tbody").append(row);
+				}
+			}
+
+
+
+		});
+
+
+
+	</script>
+}

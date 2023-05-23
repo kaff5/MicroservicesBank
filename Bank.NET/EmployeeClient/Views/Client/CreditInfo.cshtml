@@ -1,0 +1,32 @@
+﻿@using EmployeeClient.ViewModels;
+@model CreditViewModel;
+
+@{
+	ViewData["Title"] = "Информация кредита";
+}
+
+<div class="card mb-3">
+	<h5 class="card-header bg-success">Информация кредита</h5>
+
+	<div class="card-body">
+		<h6 class="" id="element">Id: @Model.BillId</h6>
+		<h6 class="mt-3">Initial sum: @Model.InitialSum</h6>
+		<h6 class="mt-3">Dept: @Model.Dept</h6>
+		<h6 class="mt-3">RemainingSum: @Model.RemainingSum</h6>
+	</div>
+</div>
+
+<h1 class="mb-3">Просроченные платежи</h1>
+<div class="card">
+	@foreach (var operation in Model.LatePaymentModels)
+	{
+		<div class="card">
+			<div class="card-header">
+				<h4>Дата: @operation.Date</h4>
+			</div>
+			<div class="card-body">
+				<h6>Кол-во: @operation.Amount</h6>
+			</div>
+		</div>
+	}
+</div>

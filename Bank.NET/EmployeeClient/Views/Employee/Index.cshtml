@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@{
+	ViewData["Title"] = "Панель сотрудника";
+}
+<div class="row">
+	<div class="col-12">
+		<h1 class="mb-3">Панель сотрудника</h1>
+		<a class="btn btn-outline-danger" asp-action="RegisterEmployee" asp-controller="Employee">Создать аккаунт сотрудника</a>
+		<a class="btn btn-outline-primary" asp-action="RegisterClient" asp-controller="Employee">Создать аккаунт клиента</a>
+		<a class="btn btn-outline-primary" asp-action="Clients" asp-controller="Client">Открыть список пользователей</a>
+		<a class="btn btn-outline-primary" asp-action="CreateTariff" asp-controller="Employee">Создать тариф</a>
+	</div>
+</div>
+
+
+<div class="mt-2">
+	<h2 class="mt-4">Информация о сотруднике</h2>
+
+	@foreach (var claim in User.Claims)
+	{
+		<div>
+			@claim.Type
+			@claim.Value
+		</div>
+	}
+</div>
+
+
+<h2>Properties</h2>
+
+<dl>
+	@foreach (var prop in (await Context.AuthenticateAsync()).Properties?.Items ?? new Dictionary<string, string?>())
+	{
+		<dt>@prop.Key</dt>
+		<dd>@prop.Value</dd>
+	}
+</dl>
